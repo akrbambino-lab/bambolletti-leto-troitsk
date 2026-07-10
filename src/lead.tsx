@@ -149,17 +149,19 @@ export function LeadForm({
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
       />
-      <select
-        className="w-full rounded-xl2 border-2 border-ink/10 bg-white px-4 py-3 outline-none focus:border-brand"
-        value={filial}
-        onChange={(e) => setFilial(e.target.value)}
-      >
-        {FILIALS.map((f) => (
-          <option key={f.id} value={f.id}>
-            Филиал: {f.name}
-          </option>
-        ))}
-      </select>
+      {FILIALS.length > 1 && (
+        <select
+          className="w-full rounded-xl2 border-2 border-ink/10 bg-white px-4 py-3 outline-none focus:border-brand"
+          value={filial}
+          onChange={(e) => setFilial(e.target.value)}
+        >
+          {FILIALS.map((f) => (
+            <option key={f.id} value={f.id}>
+              Филиал: {f.name}
+            </option>
+          ))}
+        </select>
+      )}
       <select
         className="w-full rounded-xl2 border-2 border-ink/10 bg-white px-4 py-3 outline-none focus:border-brand"
         value={shift}

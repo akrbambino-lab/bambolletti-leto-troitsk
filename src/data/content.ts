@@ -10,34 +10,28 @@ export const EARLY_BIRD_DEADLINE = "2026-07-20"; // TODO: уточнить де�
 export type Filial = {
   id: string;
   name: string;
-  address: string; // TODO
-  phone: string; // TODO  (для кнопки «позвонить»)
-  phoneHref: string; // TODO  формат tel: +7XXXXXXXXXX
-  whatsapp: string; // TODO  ссылка https://wa.me/7XXXXXXXXXX
-  telegram: string; // TODO  ссылка https://t.me/username
-  mapUrl: string; // TODO  ссылка на Яндекс/2ГИС
+  address: string;
+  phone: string;
+  phoneHref: string;
+  phone2?: string;
+  phone2Href?: string;
+  whatsapp: string; // https://wa.me/7XXXXXXXXXX
+  telegram?: string; // https://t.me/username (пусто — кнопка скрыта)
+  mapUrl: string;
 };
 
 export const FILIALS: Filial[] = [
   {
-    id: "oktyabrskiy",
-    name: "Октябрьский проспект",
-    address: "Троицк, Октябрьский пр-т, __", // TODO
-    phone: "+7 (___) ___-__-__", // TODO
-    phoneHref: "tel:+70000000000", // TODO
-    whatsapp: "https://wa.me/70000000000", // TODO
-    telegram: "https://t.me/bambolletti", // TODO
-    mapUrl: "#", // TODO
-  },
-  {
-    id: "gorodskaya",
-    name: "Городская",
-    address: "Троицк, ул. ____, __", // TODO
-    phone: "+7 (___) ___-__-__", // TODO
-    phoneHref: "tel:+70000000000", // TODO
-    whatsapp: "https://wa.me/70000000000", // TODO
-    telegram: "https://t.me/bambolletti", // TODO
-    mapUrl: "#", // TODO
+    id: "troitsk",
+    name: "Троицк, Октябрьский пр-т, 17Б",
+    address: "г. Москва, г. Троицк, Октябрьский проспект, 17Б",
+    phone: "+7 (926) 755-33-65",
+    phoneHref: "tel:+79267553365",
+    phone2: "+7 (903) 677-55-33",
+    phone2Href: "tel:+79036775533",
+    whatsapp: "https://wa.me/79267553365",
+    telegram: "", // TODO: добавьте ссылку t.me/… если нужен Telegram
+    mapUrl: "https://yandex.ru/maps/?text=Троицк, Октябрьский проспект 17Б",
   },
 ];
 
@@ -100,6 +94,18 @@ export const REVIEWS = [
     text: "Ребёнок весь год в гаджетах, а тут — квесты, эксперименты, прогулки. За неделю столько эмоций, сколько за месяц каникул дома. Цена честная за такой формат «под ключ».",
     photo: "/img/kids2.jpg",
   },
+];
+
+// --- Видео-отзывы ------------------------------------------------------------
+// Файлы в public/video. Подпись — по желанию (замените на реальные имена).
+export const VIDEO_REVIEWS = [
+  { src: "/video/rev1.mp4", poster: "/video/rev1.jpg", label: "Наши будни" },
+  { src: "/video/rev2.mp4", poster: "/video/rev2.jpg", label: "Как проходит день" },
+  { src: "/video/rev3.mp4", poster: "/video/rev3.jpg", label: "Дети о клубе" },
+  { src: "/video/rev4.mp4", poster: "/video/rev4.jpg", label: "Мастер-классы" },
+  { src: "/video/rev5.mp4", poster: "/video/rev5.jpg", label: "Экскурсии и прогулки" },
+  { src: "/video/rev6.mp4", poster: "/video/rev6.jpg", label: "Творчество" },
+  { src: "/video/rev7.mp4", poster: "/video/rev7.jpg", label: "Эмоции детей" },
 ];
 
 // --- FAQ ---------------------------------------------------------------------

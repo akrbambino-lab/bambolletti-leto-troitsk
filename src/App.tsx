@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { LeadProvider, LeadForm, useLead } from "./lead";
 import FloatingContacts from "./components/FloatingContacts";
+import VideoReviews from "./components/VideoReviews";
 import {
   FILIALS,
   SHIFTS,
@@ -20,9 +21,7 @@ function useUpcoming() {
   );
 }
 
-const gallery = ["kids1", "kids4", "kids3", "kids2", "kids5", "kids8", "kids6", "kids7"].map(
-  (n) => `/img/${n}.jpg`
-);
+const gallery = ["g1", "g4", "g2", "g5", "g9", "g6", "g8", "g7", "g3"].map((n) => `/img/${n}.jpg`);
 
 /* ------------------------------- Header ---------------------------------- */
 function Header() {
@@ -85,8 +84,8 @@ function Hero() {
         </div>
         <div className="relative">
           <img
-            src="/img/kids7.jpg"
-            alt="Счастливые дети в летнем клубе Бамболлетти"
+            src="/img/hero.jpg"
+            alt="Дети летнего клуба Бамболлетти на экскурсии"
             className="aspect-[4/3] w-full rounded-xl2 object-cover shadow-card"
           />
           <div className="absolute -bottom-4 -left-2 rounded-xl2 bg-white px-4 py-3 shadow-card sm:-left-6">
@@ -301,7 +300,7 @@ function Included() {
             ))}
           </div>
         </div>
-        <img src="/img/kids8.jpg" alt="Дети на творческом занятии" className="aspect-square w-full rounded-xl2 object-cover" />
+        <img src="/img/g5.jpg" alt="Дети на кулинарном мастер-классе" className="aspect-square w-full rounded-xl2 object-cover" />
       </div>
     </section>
   );
@@ -425,22 +424,33 @@ function Filials() {
       <div className="container-p">
         <div className="text-center">
           <span className="eyebrow !bg-white/15 !text-white">Где мы в Троицке</span>
-          <h2 className="h2 mt-3">Два филиала рядом с домом</h2>
+          <h2 className="h2 mt-3">Приезжайте — покажем всё вживую</h2>
         </div>
-        <div className="mx-auto mt-8 grid max-w-3xl gap-5 sm:grid-cols-2">
+        <div className="mx-auto mt-8 max-w-2xl">
           {FILIALS.map((f) => (
-            <div key={f.id} className="rounded-xl2 bg-white/10 p-6">
-              <h3 className="text-xl font-extrabold">{f.name}</h3>
-              <p className="mt-2 text-white/70">📍 {f.address}</p>
-              <a href={f.phoneHref} className="mt-1 block font-extrabold text-sun">
-                {f.phone}
-              </a>
-              <div className="mt-4 flex gap-2">
-                <a href={f.whatsapp} target="_blank" className="rounded-full bg-[#25D366] px-4 py-2 text-sm font-extrabold">
-                  WhatsApp
+            <div key={f.id} className="rounded-xl2 bg-white/10 p-6 sm:p-8">
+              <p className="text-lg font-extrabold">📍 {f.address}</p>
+              <div className="mt-4 flex flex-col gap-1">
+                <a href={f.phoneHref} className="text-xl font-extrabold text-sun">
+                  {f.phone}
                 </a>
-                <a href={f.telegram} target="_blank" className="rounded-full bg-[#2AABEE] px-4 py-2 text-sm font-extrabold">
-                  Telegram
+                {f.phone2 && (
+                  <a href={f.phone2Href} className="text-xl font-extrabold text-sun">
+                    {f.phone2}
+                  </a>
+                )}
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <a href={f.whatsapp} target="_blank" className="rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-extrabold">
+                  Написать в WhatsApp
+                </a>
+                {f.telegram && (
+                  <a href={f.telegram} target="_blank" className="rounded-full bg-[#2AABEE] px-5 py-2.5 text-sm font-extrabold">
+                    Telegram
+                  </a>
+                )}
+                <a href={f.mapUrl} target="_blank" className="rounded-full bg-white/15 px-5 py-2.5 text-sm font-extrabold">
+                  На карте
                 </a>
               </div>
             </div>
@@ -508,6 +518,7 @@ export default function App() {
         <Included />
         <Pricing />
         <Gallery />
+        <VideoReviews />
         <Reviews />
         <Faq />
         <Filials />
