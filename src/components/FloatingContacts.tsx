@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FILIALS } from "../data/content";
 
 const waText = encodeURIComponent(
-  "Здравствуйте! Хочу записать ребёнка в летний клуб «Бамболлетти». Подскажите по ближайшим сменам?"
+  "Здравствуйте! Хочу записать ребёнка в хобби-клуб «Бамболлетти». Подскажите по ближайшим неделям?"
 );
 
 export default function FloatingContacts() {

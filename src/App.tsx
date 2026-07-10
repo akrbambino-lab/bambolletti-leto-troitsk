@@ -26,16 +26,29 @@ const gallery = ["g1", "g4", "g2", "g5", "g9", "g6", "g8", "g7", "g3"].map((n) =
 /* ------------------------------- Header ---------------------------------- */
 function Header() {
   const { open } = useLead();
+  const f = FILIALS[0];
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/5 bg-white/90 backdrop-blur">
-      <div className="container-p flex h-16 items-center justify-between">
-        <a href="#top" className="flex items-center gap-2 font-display text-xl font-extrabold text-ink">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-brand text-white">Б</span>
-          Бамболлетти <span className="hidden text-brand sm:inline">· Лето в Троицке</span>
-        </a>
-        <div className="flex items-center gap-3">
-          <a href={FILIALS[0].phoneHref} className="hidden font-extrabold text-ink hover:text-brand sm:block">
-            {FILIALS[0].phone}
+    <header className="sticky top-0 z-40 shadow-sm">
+      {/* Верхняя контактная полоса — телефоны всегда на виду */}
+      <div className="bg-brand text-white">
+        <div className="container-p flex h-10 items-center justify-center gap-3 text-[13px] font-extrabold sm:h-9 sm:justify-end sm:gap-6">
+          <a href={f.phoneHref} className="hover:underline">📞 {f.phone}</a>
+          <a href={f.phone2Href} className="hover:underline">{f.phone2}</a>
+          <a
+            href={f.whatsapp}
+            target="_blank"
+            className="hidden items-center gap-1 rounded-full bg-white/20 px-3 py-0.5 hover:bg-white/30 sm:inline-flex"
+          >
+            WhatsApp
+          </a>
+        </div>
+      </div>
+      {/* Основная шапка */}
+      <div className="border-b border-ink/5 bg-white/90 backdrop-blur">
+        <div className="container-p flex h-14 items-center justify-between sm:h-16">
+          <a href="#top" className="flex items-center gap-2 font-display text-lg font-extrabold text-ink sm:text-xl">
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-white sm:h-9 sm:w-9">Б</span>
+            Бамболлетти <span className="hidden text-brand sm:inline">· Лето в Троицке</span>
           </a>
           <button onClick={() => open({ source: "header" })} className="btn-primary !px-5 !py-2.5 text-sm">
             Записаться
@@ -58,21 +71,21 @@ function Hero() {
             Ребёнок всё лето при деле с <span className="text-brand">7:30 до 19:00</span> — а вы спокойно работаете
           </h1>
           <p className="mt-5 text-lg text-ink/70">
-            Городской хобби-клуб в Троицке: тематические смены по неделям, творчество, квесты,
+            Городской хобби-клуб в Троицке: тематические недели, творчество, квесты,
             3 часа прогулок в день и гаджеты не больше 40 минут. Всё включено.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <button onClick={() => open({ source: "hero" })} className="btn-primary text-lg">
-              Записаться на ближайшую смену
+              Записаться на ближайшую неделю
             </button>
             <a href="#shifts" className="btn-ghost text-lg">
-              Смотреть смены
+              Смотреть недели
             </a>
           </div>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
             {[
               ["300+", "детей каждое лето"],
-              ["13", "тематических смен"],
+              ["13", "тематических недель"],
               ["90%", "берут больше 1 недели"],
             ].map(([a, b]) => (
               <div key={b}>
@@ -90,7 +103,7 @@ function Hero() {
           />
           <div className="absolute -bottom-4 -left-2 rounded-xl2 bg-white px-4 py-3 shadow-card sm:-left-6">
             <div className="text-sm font-extrabold text-ink">🔥 Мест на неделю мало</div>
-            <div className="text-xs text-ink/60">Смены набираются заранее</div>
+            <div className="text-xs text-ink/60">Недели набираются заранее</div>
           </div>
         </div>
       </div>
@@ -109,7 +122,7 @@ function Upcoming() {
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <span className="eyebrow !bg-white/15 !text-white">Успейте записаться</span>
-            <h2 className="h2 mt-3">Ближайшие смены — места заканчиваются</h2>
+            <h2 className="h2 mt-3">Ближайшие недели — места заканчиваются</h2>
           </div>
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -211,10 +224,10 @@ function Schedule() {
     <section id="shifts" className="section">
       <div className="container-p">
         <div className="text-center">
-          <span className="eyebrow">Расписание смен · лето 2026</span>
+          <span className="eyebrow">Расписание недель · лето 2026</span>
           <h2 className="h2 mt-3">13 тематических недель — выбирайте любые</h2>
           <p className="mx-auto mt-3 max-w-2xl text-ink/60">
-            Каждая смена — отдельная тема на всю неделю. Можно взять одну или несколько.
+            Каждая неделя — отдельная тема. Можно взять одну или несколько.
           </p>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -345,14 +358,14 @@ function Gallery() {
       <div className="container-p">
         <div className="text-center">
           <span className="eyebrow">Как это выглядит</span>
-          <h2 className="h2 mt-3">Фотографии с наших смен</h2>
+          <h2 className="h2 mt-3">Фотографии наших ребят</h2>
         </div>
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {gallery.map((src, i) => (
             <img
               key={src}
               src={src}
-              alt={`Смена ${i + 1}`}
+              alt={`Наши ребята — фото ${i + 1}`}
               loading="lazy"
               className="aspect-square w-full rounded-xl2 object-cover shadow-card"
             />
@@ -469,11 +482,11 @@ function FinalCta() {
         <div className="mx-auto grid max-w-4xl items-center gap-8 rounded-xl2 bg-gradient-to-br from-brand to-berry p-8 text-white shadow-card sm:p-12 lg:grid-cols-2">
           <div>
             <h2 className="text-3xl font-extrabold leading-tight sm:text-4xl">
-              Запишите ребёнка на смену за 1 минуту
+              Запишите ребёнка на неделю за 1 минуту
             </h2>
             <p className="mt-3 text-white/80">
               Оставьте контакты — перезвоним в течение 15 минут, ответим на вопросы и подберём
-              смену со скидкой. Без спама.
+              неделю со скидкой. Без спама.
             </p>
             <ul className="mt-5 space-y-2 text-white/90">
               <li>✅ Бесплатная консультация</li>
@@ -496,7 +509,7 @@ function Footer() {
       <div className="container-p flex flex-col items-center justify-between gap-3 text-sm text-ink/50 sm:flex-row">
         <div>© {TODAY.getFullYear()} Хобби-клуб «Бамболлетти» · Троицк</div>
         <div className="flex gap-4">
-          <a href="#shifts" className="hover:text-brand">Смены</a>
+          <a href="#shifts" className="hover:text-brand">Недели</a>
           <a href="#price" className="hover:text-brand">Цены</a>
           <a href="#filials" className="hover:text-brand">Филиалы</a>
         </div>

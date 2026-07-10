@@ -49,9 +49,9 @@ export function LeadProvider({ children }: { children: ReactNode }) {
             >
               ✕
             </button>
-            <h3 className="text-2xl font-extrabold">Записаться на смену</h3>
+            <h3 className="text-2xl font-extrabold">Записаться на неделю</h3>
             <p className="mt-1 text-ink/60">
-              Оставьте контакты — перезвоним в течение 15 минут и подберём смену.
+              Оставьте контакты — перезвоним в течение 15 минут и подберём неделю.
             </p>
             <LeadForm prefill={prefill} onDone={() => setTimeout(() => setOpen(false), 2500)} />
           </div>
@@ -86,7 +86,7 @@ export function LeadForm({
     const f = FILIALS.find((x) => x.id === filial) || FILIALS[0];
     const text = encodeURIComponent(
       `Здравствуйте! Хочу записать ребёнка в клуб «Бамболлетти» (${f.name}).` +
-        (shift ? ` Смена: ${shift}.` : "") +
+        (shift ? ` Неделя: ${shift}.` : "") +
         (name ? ` Меня зовут ${name}.` : "")
     );
     window.open(`${f.whatsapp}?text=${text}`, "_blank");
@@ -167,7 +167,7 @@ export function LeadForm({
         value={shift}
         onChange={(e) => setShift(e.target.value)}
       >
-        <option value="">Смена (подберём вместе)</option>
+        <option value="">Неделя (подберём вместе)</option>
         {SHIFTS.filter((s) => s.seats > 0).map((s) => (
           <option key={s.n} value={`${s.dates} — ${s.title}`}>
             {s.dates} — {s.title}
@@ -182,7 +182,7 @@ export function LeadForm({
         <p className="text-sm font-bold text-brand">Проверьте имя, телефон и согласие.</p>
       )}
       <button type="submit" className="btn-primary w-full" disabled={state === "sending"}>
-        {state === "sending" ? "Отправляем…" : "Записаться на смену"}
+        {state === "sending" ? "Отправляем…" : "Записаться на неделю"}
       </button>
       <p className="text-center text-xs text-ink/40">Перезвоним за 15 минут · без спама</p>
     </form>
