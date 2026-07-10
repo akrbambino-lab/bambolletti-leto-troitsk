@@ -20,7 +20,7 @@ function useUpcoming() {
   );
 }
 
-const gallery = ["cam1", "cam2", "cam3", "cam4", "cam5", "cam6", "cam7", "cam8"].map(
+const gallery = ["kids1", "kids4", "kids3", "kids2", "kids5", "kids8", "kids6", "kids7"].map(
   (n) => `/img/${n}.jpg`
 );
 
@@ -85,8 +85,8 @@ function Hero() {
         </div>
         <div className="relative">
           <img
-            src="/img/cam1.jpg"
-            alt="Дети в летнем клубе Бамболлетти"
+            src="/img/kids7.jpg"
+            alt="Счастливые дети в летнем клубе Бамболлетти"
             className="aspect-[4/3] w-full rounded-xl2 object-cover shadow-card"
           />
           <div className="absolute -bottom-4 -left-2 rounded-xl2 bg-white px-4 py-3 shadow-card sm:-left-6">
@@ -115,20 +115,23 @@ function Upcoming() {
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {upcoming.map((s) => (
-            <div key={s.n} className="flex flex-col rounded-xl2 bg-white/10 p-5">
-              <div className="text-sm font-bold text-sun">{s.dates}</div>
-              <div className="mt-1 text-lg font-extrabold">{s.title}</div>
-              <p className="mt-1 flex-1 text-sm text-white/70">{s.desc}</p>
-              <div className="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-mint">
-                <span className="h-2 w-2 rounded-full bg-mint" />
-                Осталось {s.seats} мест
+            <div key={s.n} className="flex flex-col overflow-hidden rounded-xl2 bg-white/10">
+              <img src={s.img} alt={s.title} loading="lazy" className="h-36 w-full object-cover" />
+              <div className="flex flex-1 flex-col p-5">
+                <div className="text-sm font-bold text-sun">{s.dates}</div>
+                <div className="mt-1 text-lg font-extrabold">{s.title}</div>
+                <p className="mt-1 flex-1 text-sm text-white/70">{s.desc}</p>
+                <div className="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-mint">
+                  <span className="h-2 w-2 rounded-full bg-mint" />
+                  Осталось {s.seats} мест
+                </div>
+                <button
+                  onClick={() => open({ shift: `${s.dates} — ${s.title}`, source: "upcoming" })}
+                  className="btn-primary mt-3 w-full !py-2.5 text-sm"
+                >
+                  Забронировать место
+                </button>
               </div>
-              <button
-                onClick={() => open({ shift: `${s.dates} — ${s.title}`, source: "upcoming" })}
-                className="btn-primary mt-3 w-full !py-2.5 text-sm"
-              >
-                Забронировать место
-              </button>
             </div>
           ))}
         </div>
@@ -223,34 +226,46 @@ function Schedule() {
             return (
               <div
                 key={s.n}
-                className={`flex flex-col rounded-xl2 border-2 p-5 ${
+                className={`flex flex-col overflow-hidden rounded-xl2 border-2 ${
                   dim ? "border-ink/5 bg-ink/[0.03]" : "border-brand/20 bg-white shadow-card"
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-extrabold text-brand">{s.dates}</span>
-                  {over ? (
-                    <span className="rounded-full bg-ink/10 px-2 py-0.5 text-xs font-bold text-ink/50">Прошла</span>
-                  ) : soldout ? (
-                    <span className="rounded-full bg-ink/10 px-2 py-0.5 text-xs font-bold text-ink/50">Мест нет</span>
-                  ) : s.seats <= 4 ? (
-                    <span className="rounded-full bg-brand/10 px-2 py-0.5 text-xs font-extrabold text-brand">
-                      Осталось {s.seats}
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-mint/15 px-2 py-0.5 text-xs font-extrabold text-mint">Есть места</span>
+                <div className="relative">
+                  <img
+                    src={s.img}
+                    alt={s.title}
+                    loading="lazy"
+                    className={`h-40 w-full object-cover ${over ? "opacity-50 grayscale" : ""}`}
+                  />
+                  <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-extrabold text-brand shadow">
+                    {s.dates}
+                  </span>
+                  <span className="absolute right-3 top-3">
+                    {over ? (
+                      <span className="rounded-full bg-ink/70 px-2 py-0.5 text-xs font-bold text-white">Прошла</span>
+                    ) : soldout ? (
+                      <span className="rounded-full bg-ink/70 px-2 py-0.5 text-xs font-bold text-white">Мест нет</span>
+                    ) : s.seats <= 4 ? (
+                      <span className="rounded-full bg-brand px-2 py-0.5 text-xs font-extrabold text-white">
+                        Осталось {s.seats}
+                      </span>
+                    ) : (
+                      <span className="rounded-full bg-mint px-2 py-0.5 text-xs font-extrabold text-white">Есть места</span>
+                    )}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className={`text-lg font-extrabold ${dim ? "text-ink/50" : ""}`}>{s.title}</h3>
+                  <p className="mt-1 flex-1 text-sm text-ink/60">{s.desc}</p>
+                  {!dim && (
+                    <button
+                      onClick={() => open({ shift: `${s.dates} — ${s.title}`, source: "schedule" })}
+                      className="btn-ghost mt-4 !py-2.5 text-sm"
+                    >
+                      Записаться
+                    </button>
                   )}
                 </div>
-                <h3 className={`mt-2 text-lg font-extrabold ${dim ? "text-ink/50" : ""}`}>{s.title}</h3>
-                <p className="mt-1 flex-1 text-sm text-ink/60">{s.desc}</p>
-                {!dim && (
-                  <button
-                    onClick={() => open({ shift: `${s.dates} — ${s.title}`, source: "schedule" })}
-                    className="btn-ghost mt-4 !py-2.5 text-sm"
-                  >
-                    Записаться
-                  </button>
-                )}
               </div>
             );
           })}
@@ -286,7 +301,7 @@ function Included() {
             ))}
           </div>
         </div>
-        <img src="/img/cam5.jpg" alt="Активности в клубе" className="aspect-square w-full rounded-xl2 object-cover" />
+        <img src="/img/kids8.jpg" alt="Дети на творческом занятии" className="aspect-square w-full rounded-xl2 object-cover" />
       </div>
     </section>
   );
@@ -360,10 +375,16 @@ function Reviews() {
         </div>
         <div className="mx-auto mt-8 grid max-w-4xl gap-5 sm:grid-cols-2">
           {REVIEWS.map((r) => (
-            <div key={r.name} className="rounded-xl2 bg-white p-6 shadow-card">
+            <div key={r.name} className="flex flex-col rounded-xl2 bg-white p-6 shadow-card">
               <div className="text-2xl">⭐️⭐️⭐️⭐️⭐️</div>
-              <p className="mt-3 text-ink/80">{r.text}</p>
-              <div className="mt-4 font-extrabold text-brand">{r.name}</div>
+              <p className="mt-3 flex-1 text-ink/80">{r.text}</p>
+              <div className="mt-4 flex items-center gap-3">
+                <img src={r.photo} alt={r.name} loading="lazy" className="h-11 w-11 rounded-full object-cover" />
+                <div>
+                  <div className="font-extrabold text-brand">{r.name}</div>
+                  <div className="text-sm text-ink/50">{r.role}</div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
