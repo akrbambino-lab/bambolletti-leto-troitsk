@@ -117,6 +117,19 @@ async function createMoyKlassLead(lead) {
   }
 }
 
+// ------- Антиспам: rate-limit по IP -------
+const hits = new Map(); // ip -> [timestamps]
+const RL_WINDOW = 10 * 60 * 1000; // 10 минут
+const RL_MAX = 6; // не больше 6 заявок с одного IP за окно
+function rateLimited(ip) {
+  const now = Date.now();
+  const arr = (hits.get(ip) || []).filter((t) => now - t < RL_WINDOW);
+  arr.push(now);
+  hits.set(ip, arr);
+  if (hits.size > 5000) hits.clear(); // защита от разрастания
+  return arr.length > RL_MAX;
+}
+
 const server = createServer(async (req, res) => {
   if (req.method === "POST" && req.url === "/api/lead") {
     let body = "";
@@ -124,8 +137,24 @@ const server = createServer(async (req, res) => {
     req.on("end", async () => {
       try {
         const lead = JSON.parse(body || "{}");
+        const ip = String(req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
         lead.ts = new Date().toISOString();
-        lead.ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+        lead.ip = ip;
+
+        // --- фильтр ботов: отвечаем ok, но заявку не пересылаем ---
+        const isBot =
+          (lead.hp && String(lead.hp).trim() !== "") || // honeypot заполнен
+          (typeof lead.elapsed === "number" && lead.elapsed < 1500) || // отправлено < 1.5 с
+          !lead.name || String(lead.phone || "").replace(/\D/g, "").length < 11 ||
+          rateLimited(ip);
+
+        if (isBot) {
+          await appendFile(LEADS, JSON.stringify({ ...lead, spam: true }) + "\n");
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ ok: true }));
+          return;
+        }
+
         await appendFile(LEADS, JSON.stringify(lead) + "\n");
         // не блокируем ответ клиенту доставкой в CRM/TG
         Promise.allSettled([sendTelegram(lead), createMoyKlassLead(lead)]);

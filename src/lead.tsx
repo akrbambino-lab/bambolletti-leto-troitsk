@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -76,6 +77,8 @@ export function LeadForm({
   const [filial, setFilial] = useState(prefill.filial || FILIALS[0].id);
   const [shift, setShift] = useState(prefill.shift || "");
   const [agree, setAgree] = useState(true);
+  const [hp, setHp] = useState(""); // honeypot — люди не заполняют
+  const renderedAt = useRef(Date.now());
 
   useEffect(() => {
     if (prefill.filial) setFilial(prefill.filial);
@@ -106,6 +109,8 @@ export function LeadForm({
       shift,
       source: prefill.source || "form",
       page: location.href,
+      hp, // honeypot: если заполнено — это бот
+      elapsed: Date.now() - renderedAt.current, // мс с момента показа формы
     };
     try {
       const res = await fetch(LEAD_ENDPOINT, {
@@ -136,6 +141,17 @@ export function LeadForm({
 
   return (
     <form onSubmit={submit} className={compact ? "mt-4 space-y-3" : "mt-5 space-y-3"}>
+      {/* honeypot: скрыт от людей, боты заполняют */}
+      <input
+        type="text"
+        name="company"
+        tabIndex={-1}
+        autoComplete="off"
+        value={hp}
+        onChange={(e) => setHp(e.target.value)}
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+      />
       <input
         className="w-full rounded-xl2 border-2 border-ink/10 px-4 py-3 outline-none focus:border-brand"
         placeholder="Ваше имя"
