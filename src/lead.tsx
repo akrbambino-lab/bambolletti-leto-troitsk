@@ -119,6 +119,9 @@ export function LeadForm({
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("bad");
+      // цель в Яндекс.Метрике (если счётчик подключён)
+      const w = window as unknown as { YM_ID?: number; ym?: (...a: unknown[]) => void };
+      if (w.YM_ID && w.ym) w.ym(w.YM_ID, "reachGoal", "lead");
       setState("ok");
       onDone?.();
     } catch {
