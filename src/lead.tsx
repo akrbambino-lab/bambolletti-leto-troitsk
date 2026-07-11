@@ -176,7 +176,12 @@ export function LeadForm({
       </select>
       <label className="flex cursor-pointer items-start gap-2 text-sm text-ink/60">
         <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-1" />
-        <span>Согласен с обработкой персональных данных</span>
+        <span>
+          Согласен с{" "}
+          <a href="/privacy.html" target="_blank" className="underline hover:text-brand">
+            обработкой персональных данных
+          </a>
+        </span>
       </label>
       {state === "error" && (
         <p className="text-sm font-bold text-brand">Проверьте имя, телефон и согласие.</p>

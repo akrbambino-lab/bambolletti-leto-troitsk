@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { LeadProvider, LeadForm, useLead } from "./lead";
 import FloatingContacts from "./components/FloatingContacts";
 import VideoReviews from "./components/VideoReviews";
+import CookieBanner from "./components/CookieBanner";
 import {
   FILIALS,
   SHIFTS,
@@ -47,7 +48,7 @@ function Header() {
       <div className="border-b border-ink/5 bg-white/90 backdrop-blur">
         <div className="container-p flex h-14 items-center justify-between sm:h-16">
           <a href="#top" className="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink sm:text-xl">
-            <img src="/img/logo.svg" alt="Бамболлетти" className="h-11 w-11 sm:h-12 sm:w-12" />
+            <img src="/img/logo.png" alt="Бамболлетти" className="h-11 w-11 sm:h-12 sm:w-12" />
             <span>Бамболлетти <span className="hidden text-brand sm:inline">· Лето в Троицке</span></span>
           </a>
           <button onClick={() => open({ source: "header" })} className="btn-primary !px-5 !py-2.5 text-sm">
@@ -508,13 +509,14 @@ function Footer() {
     <footer className="border-t border-ink/5 bg-white py-8">
       <div className="container-p flex flex-col items-center justify-between gap-3 text-sm text-ink/50 sm:flex-row">
         <div className="flex items-center gap-2.5">
-          <img src="/img/logo.svg" alt="Бамболлетти" className="h-10 w-10" />
+          <img src="/img/logo.png" alt="Бамболлетти" className="h-10 w-10" />
           <span>© {TODAY.getFullYear()} Хобби-клуб «Бамболлетти» · Троицк</span>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           <a href="#shifts" className="hover:text-brand">Недели</a>
           <a href="#price" className="hover:text-brand">Цены</a>
           <a href="#filials" className="hover:text-brand">Филиалы</a>
+          <a href="/privacy.html" target="_blank" className="hover:text-brand">Политика конфиденциальности</a>
         </div>
       </div>
     </footer>
@@ -542,6 +544,7 @@ export default function App() {
       </main>
       <Footer />
       <FloatingContacts />
+      <CookieBanner />
     </LeadProvider>
   );
 }
