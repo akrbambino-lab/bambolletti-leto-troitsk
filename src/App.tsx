@@ -519,6 +519,9 @@ function Footer() {
           <a href="/privacy.html" target="_blank" className="hover:text-brand">Политика конфиденциальности</a>
         </div>
       </div>
+      <div className="container-p mt-4 text-center text-xs text-ink/40">
+        ИП Усачева Екатерина Игоревна · ИНН 504601400090 · ОГРНИП 320774600163129
+      </div>
     </footer>
   );
 }
