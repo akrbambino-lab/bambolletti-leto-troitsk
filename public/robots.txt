@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://leto-troitsk.45-10-40-100.sslip.io/sitemap.xml
+Sitemap: https://bambolletti-leto.ru/sitemap.xml
