@@ -22,7 +22,7 @@ function useUpcoming() {
   );
 }
 
-const gallery = ["g1", "g4", "g2", "g5", "g9", "g6", "g8", "g7", "g3"].map((n) => `/img/${n}.jpg`);
+const gallery = ["g1", "g4", "g2", "g5", "g9", "g6", "g8", "g7", "g3"].map((n) => `/img/${n}.webp`);
 
 /* ------------------------------- Header ---------------------------------- */
 function Header() {
@@ -98,7 +98,7 @@ function Hero() {
         </div>
         <div className="relative">
           <img
-            src="/img/hero.jpg"
+            src="/img/hero.webp"
             alt="Дети летнего клуба Бамболлетти на экскурсии"
             className="aspect-[4/3] w-full rounded-xl2 object-cover shadow-card"
           />
@@ -314,7 +314,7 @@ function Included() {
             ))}
           </div>
         </div>
-        <img src="/img/g5.jpg" alt="Дети на кулинарном мастер-классе" className="aspect-square w-full rounded-xl2 object-cover" />
+        <img src="/img/g5.webp" alt="Дети на кулинарном мастер-классе" className="aspect-square w-full rounded-xl2 object-cover" />
       </div>
     </section>
   );
